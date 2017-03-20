@@ -55,26 +55,17 @@ state iz(state cur)
     if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
     {
         if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-        {
             ret.cA = cuA;
-            //printf("Mueve A(%d,%d) a A(%d,%d)\n",cur.cA.f,cur.cA.s,ret.cA.f,ret.cA.s);
-        }
         else
             ret.cA = cur.cA;
 
         if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-        {
             ret.cB = cuB;
-            //printf("Mueve B(%d,%d) a B(%d,%d)\n",cur.cB.f,cur.cB.s,ret.cB.f,ret.cB.s);
-        }
         else
             ret.cB = cur.cB;
 
         if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-        {
             ret.cC = cuC;
-            //printf("Mueve C(%d,%d) a C(%d,%d)\n",cur.cC.f,cur.cC.s,ret.cC.f,ret.cC.s);
-        }
         else
             ret.cC = cur.cC;
 
@@ -82,20 +73,17 @@ state iz(state cur)
         {
             cuA = cur.cA;
             rba=true;
-            //printf("Rollback de A(%d,%d) a A(%d,%d)\n",ret.cA.f,ret.cA.s,cur.cA.f,cur.cA.s);
         }
 
         if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
         {
             cuB = cur.cB;
             rbb = true;
-            //printf("Rollback de B(%d,%d) a B(%d,%d)\n",ret.cB.f,ret.cB.s,cur.cB.f,cur.cB.s);
         }
         if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
         {
             cuC = cur.cC;
             rbc=true;
-            //printf("Rollback de C(%d,%d) a C(%d,%d)\n",ret.cC.f,ret.cC.s,cur.cC.f,cur.cC.s);
         }
 
         rba?ret.cA = cuA:ret.cA=ret.cA;
@@ -104,9 +92,7 @@ state iz(state cur)
         ret.val=cur.val+1;
     }
     else
-    {
         ret = cur;
-    }
 
     return ret;
 }
@@ -122,26 +108,17 @@ state de(state cur)
     if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
     {
         if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-        {
             ret.cA = cuA;
-            //printf("Mueve A(%d,%d) a A(%d,%d)\n",cur.cA.f,cur.cA.s,ret.cA.f,ret.cA.s);
-        }
         else
             ret.cA = cur.cA;
 
         if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-        {
             ret.cB = cuB;
-            //printf("Mueve B(%d,%d) a B(%d,%d)\n",cur.cB.f,cur.cB.s,ret.cB.f,ret.cB.s);
-        }
         else
             ret.cB = cur.cB;
 
         if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-        {
             ret.cC = cuC;
-            //printf("Mueve C(%d,%d) a C(%d,%d)\n",cur.cC.f,cur.cC.s,ret.cC.f,ret.cC.s);
-        }
         else
             ret.cC = cur.cC;
 
@@ -149,20 +126,17 @@ state de(state cur)
         {
             cuA = cur.cA;
             rba=true;
-            //printf("Rollback de A(%d,%d) a A(%d,%d)\n",ret.cA.f,ret.cA.s,cur.cA.f,cur.cA.s);
         }
 
         if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
         {
             cuB = cur.cB;
             rbb = true;
-            //printf("Rollback de B(%d,%d) a B(%d,%d)\n",ret.cB.f,ret.cB.s,cur.cB.f,cur.cB.s);
         }
         if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
         {
             cuC = cur.cC;
             rbc=true;
-            //printf("Rollback de C(%d,%d) a C(%d,%d)\n",ret.cC.f,ret.cC.s,cur.cC.f,cur.cC.s);
         }
 
         rba?ret.cA = cuA:ret.cA=ret.cA;
@@ -171,9 +145,7 @@ state de(state cur)
         ret.val=cur.val+1;
     }
     else
-    {
         ret = cur;
-    }
 
     return ret;
 
@@ -189,26 +161,17 @@ state ar(state cur)
     if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
     {
         if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-        {
             ret.cA = cuA;
-            //printf("Mueve A(%d,%d) a A(%d,%d)\n",cur.cA.f,cur.cA.s,ret.cA.f,ret.cA.s);
-        }
         else
             ret.cA = cur.cA;
 
         if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-        {
             ret.cB = cuB;
-            //printf("Mueve B(%d,%d) a B(%d,%d)\n",cur.cB.f,cur.cB.s,ret.cB.f,ret.cB.s);
-        }
         else
             ret.cB = cur.cB;
 
         if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-        {
             ret.cC = cuC;
-            //printf("Mueve C(%d,%d) a C(%d,%d)\n",cur.cC.f,cur.cC.s,ret.cC.f,ret.cC.s);
-        }
         else
             ret.cC = cur.cC;
 
@@ -216,20 +179,17 @@ state ar(state cur)
         {
             cuA = cur.cA;
             rba=true;
-            //printf("Rollback de A(%d,%d) a A(%d,%d)\n",ret.cA.f,ret.cA.s,cur.cA.f,cur.cA.s);
         }
 
         if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
         {
             cuB = cur.cB;
             rbb = true;
-            //printf("Rollback de B(%d,%d) a B(%d,%d)\n",ret.cB.f,ret.cB.s,cur.cB.f,cur.cB.s);
         }
         if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
         {
             cuC = cur.cC;
             rbc=true;
-            //printf("Rollback de C(%d,%d) a C(%d,%d)\n",ret.cC.f,ret.cC.s,cur.cC.f,cur.cC.s);
         }
 
         rba?ret.cA = cuA:ret.cA=ret.cA;
@@ -238,9 +198,7 @@ state ar(state cur)
         ret.val=cur.val+1;
     }
     else
-    {
         ret = cur;
-    }
 
     return ret;
 
@@ -256,26 +214,17 @@ state ab(state cur)
     if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
     {
         if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-        {
             ret.cA = cuA;
-            //printf("Mueve A(%d,%d) a A(%d,%d)\n",cur.cA.f,cur.cA.s,ret.cA.f,ret.cA.s);
-        }
         else
             ret.cA = cur.cA;
 
         if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-        {
             ret.cB = cuB;
-            // printf("Mueve B(%d,%d) a B(%d,%d)\n",cur.cB.f,cur.cB.s,ret.cB.f,ret.cB.s);
-        }
         else
             ret.cB = cur.cB;
 
         if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-        {
             ret.cC = cuC;
-            // printf("Mueve C(%d,%d) a C(%d,%d)\n",cur.cC.f,cur.cC.s,ret.cC.f,ret.cC.s);
-        }
         else
             ret.cC = cur.cC;
 
@@ -283,20 +232,17 @@ state ab(state cur)
         {
             cuA = cur.cA;
             rba=true;
-            // printf("Rollback de A(%d,%d) a A(%d,%d)\n",ret.cA.f,ret.cA.s,cur.cA.f,cur.cA.s);
         }
 
         if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
         {
             cuB = cur.cB;
             rbb = true;
-            // printf("Rollback de B(%d,%d) a B(%d,%d)\n",ret.cB.f,ret.cB.s,cur.cB.f,cur.cB.s);
         }
         if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
         {
             cuC = cur.cC;
             rbc=true;
-            // printf("Rollback de C(%d,%d) a C(%d,%d)\n",ret.cC.f,ret.cC.s,cur.cC.f,cur.cC.s);
         }
 
         rba?ret.cA = cuA:ret.cA=ret.cA;
@@ -305,14 +251,11 @@ state ab(state cur)
         ret.val=cur.val+1;
     }
     else
-    {
         ret = cur;
-    }
 
     return ret;
 
 }
-
 
 bool isEnd(state pe)
 {
@@ -331,12 +274,9 @@ bool validar(state st)
         if(res[st.cA.f][st.cA.s][st.cB.f][st.cB.s][st.cC.f][st.cC.s]>st.val && notSame(st.cA,st.cB,st.cC))
         {
             res[st.cA.f][st.cA.s][st.cB.f][st.cB.s][st.cC.f][st.cC.s]=st.val;
-            // printf("En A(%d,%d) B(%d,%d) C(%d,%d) marcado con %d\n",st.cA.f,st.cA.s,st.cB.f,st.cB.s,st.cC.f,st.cC.s,st.val);
             return true;
-        }//else
-        //   printf("No jue menol A(%d,%d) B(%d,%d) C(%d,%d) -> %d a %d\n",st.cA.f,st.cA.s,st.cB.f,st.cB.s,st.cC.f,st.cC.s,st.val,res[st.cA.f][st.cA.s][st.cB.f][st.cB.s][st.cC.f][st.cC.s]);
-    }//else
-    //  printf("Ni entro con A(%d,%d) B(%d,%d) C(%d,%d),lol\n",st.cA.f,st.cA.s,st.cB.f,st.cB.s,st.cC.f,st.cC.s);
+        }
+    }
     return false;
 }
 
@@ -356,32 +296,18 @@ void bfs()
     {
         curr = cola.fr;
         cola.pp;
-
-        //printf("cur = A(%d,%d) B(%d,%d) C(%d,%d) con %d\n",curr.cA.f,curr.cA.s,curr.cB.f,curr.cB.s,curr.cC.f,curr.cC.s,curr.val);
-
         if(isEnd(curr))
-        {
             resp > curr.val? resp = curr.val:resp = resp;
-            //     printf("REACHED!!!!!\n");
-        }
-
         enc = iz(curr);
-        // if(enc.cA == ii(3,3) && enc.cB == ii(1,3) && enc.cC == ii(2,2)) printf("Aqui jueeeee!!!!!!!! con A(%d,%d) B(%d,%d) C(%d,%d)\n",curr.cA.f,curr.cA.s,curr.cB.f,curr.cB.s,curr.cC.f,curr.cC.s);
         if(enc!=curr && validar(enc))
             cola.p(enc);
-
         enc = de(curr);
-        //if(enc.cA == ii(3,3) && enc.cB == ii(1,3) && enc.cC == ii(2,2)) printf("Aqui jueeeee!!!!!!!! con A(%d,%d) B(%d,%d) C(%d,%d)\n",curr.cA.f,curr.cA.s,curr.cB.f,curr.cB.s,curr.cC.f,curr.cC.s);
         if(enc!=curr && validar(enc))
             cola.p(enc);
-
         enc = ar(curr);
-        // if(enc.cA == ii(3,3) && enc.cB == ii(1,3) && enc.cC == ii(2,2)) printf("Aqui jueeeee!!!!!!!! con A(%d,%d) B(%d,%d) C(%d,%d)\n",curr.cA.f,curr.cA.s,curr.cB.f,curr.cB.s,curr.cC.f,curr.cC.s);
         if(enc!=curr && validar(enc))
             cola.p(enc);
-
         enc = ab(curr);
-        // if(enc.cA == ii(3,3) && enc.cB == ii(1,3) && enc.cC == ii(2,2)) printf("Aqui jueeeee!!!!!!!! con A(%d,%d) B(%d,%d) C(%d,%d)\n",curr.cA.f,curr.cA.s,curr.cB.f,curr.cB.s,curr.cC.f,curr.cC.s);
         if(enc!=curr && validar(enc))
             cola.p(enc);
     }
@@ -459,7 +385,6 @@ int main()
             puts("trapped");
         c++;
     }
-
 
     return 0;
 }
