@@ -74,6 +74,8 @@ void bfs()
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
     while(cin >> n >> m)
     {
         cin >> ie >> je >> ig >> jg >> im >> jm;
