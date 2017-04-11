@@ -73,6 +73,9 @@ void clearList(int n){
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
     vi banks, stations,sol;
     int n,m,b,p,s,t,w,cb,cp,num;
     while(cin >> n >> m >> b >> p){
