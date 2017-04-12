@@ -18,13 +18,13 @@ int di[] = {0,0,-1,1,0,0};
 int dj[] = {-1,1,0,0,0,0};
 int dk[] = {0,0,0,0,-1,1};
 
-bool validar(pos enq, bool k){
+bool validar(pos enq, bool as){
     if(enq.gi>=0 && enq.gi<n && enq.gj>=0 && enq.gj<m && enq.floor>=0 && enq.floor<h){
 
-        if(k && !vis[enq.floor][enq.gi][enq.gj] && mat[enq.floor][enq.gi][enq.gj]=='-')
+        if(as && !vis[enq.floor][enq.gi][enq.gj] && mat[enq.floor][enq.gi][enq.gj]=='-')
             return vis[enq.floor][enq.gi][enq.gj] = true;
 
-        else if(!vis[enq.floor][enq.gi][enq.gj] && mat[enq.floor][enq.gi][enq.gj]!='#')
+        else if(!as && !vis[enq.floor][enq.gi][enq.gj] && mat[enq.floor][enq.gi][enq.gj]!='#')
             return vis[enq.floor][enq.gi][enq.gj] = true;
     }
 
@@ -43,7 +43,7 @@ void bfs(){
     int ni,nj,nk,ci,cj,ck,ct;
     while(!q.empty()){
         aux = q.front(); q.pop();
-        if(isEnd(aux)) {res=min(res,aux.time); /*cout << "reach end with time " << aux.time <<"\n";*/}
+        if(isEnd(aux)) res=min(res,aux.time);
         ci = aux.gi; cj = aux.gj; ck = aux.floor; ct = aux.time;
         rep(i,6){
             if(i>=4 && mat[ck][ci][cj]!='-')break;
@@ -51,7 +51,7 @@ void bfs(){
             nj = cj + dj[i];
             nk = ck + dk[i];
             enq = pos(ii(ni,nj),ii(nk,ct+1));
-            if(validar(enq,i>3)) {q.push(enq); /*cout << "enqueued " << ni <<" " << nj <<" "<<nk<< "with time " << ct+1<<"\n"; */}
+            if(validar(enq,i>3)) q.push(enq);
         }
     }
 
@@ -60,6 +60,8 @@ void bfs(){
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
     while(1)
     {
         cin >> n >> m >> h;
