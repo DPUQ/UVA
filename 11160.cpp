@@ -19,6 +19,17 @@ struct state
     ii cC;
     int val;
 
+    state(ii nA,ii nB, ii nC, int nVal){
+        cA = nA;
+        cB = nB;
+        cC = nC;
+        val = nVal;
+    }
+
+    state(){
+
+    }
+
     bool operator!=( const state& i)
     {
         return !(i.cA == cA && i.cB==cB && i.cC == cC);
@@ -28,233 +39,18 @@ struct state
 typedef queue<state> qii;
 
 char mat[MAX][MAX];
-int res[MAX][MAX][MAX][MAX][MAX][MAX];
+bool res[MAX][MAX][MAX][MAX][MAX][MAX];
 int resp,n;
+int di [] = {-1,1,0,0};
+int dj [] = {0,0,-1,1};
 ii A,B,C;
 
-int can(ii p)
+bool can(ii p)
 {
     if(p.f>=0 && p.f<n && p.s>=0 && p.s<n)
-    {
-        if(mat[p.f][p.s]=='#')
-            return 0;
+        return  mat[p.f][p.s]!='#';
 
-        return 1;
-    }
-    return -1;
-}
-
-state iz(state cur)
-{
-
-    state ret;
-    ii cuA(cur.cA.f,cur.cA.s-1);
-    ii cuB(cur.cB.f,cur.cB.s-1);
-    ii cuC(cur.cC.f,cur.cC.s-1);
-    bool rba=0,rbb=0,rbc=0;
-    if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
-    {
-        if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-            ret.cA = cuA;
-        else
-            ret.cA = cur.cA;
-
-        if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-            ret.cB = cuB;
-        else
-            ret.cB = cur.cB;
-
-        if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-            ret.cC = cuC;
-        else
-            ret.cC = cur.cC;
-
-        if((cuA==ret.cB || cuA == ret.cC) && cuA == ret.cA)
-        {
-            cuA = cur.cA;
-            rba=true;
-        }
-
-        if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
-        {
-            cuB = cur.cB;
-            rbb = true;
-        }
-        if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
-        {
-            cuC = cur.cC;
-            rbc=true;
-        }
-
-        rba?ret.cA = cuA:ret.cA=ret.cA;
-        rbb?ret.cB = cuB:ret.cB=ret.cB;
-        rbc?ret.cC = cuC:ret.cC=ret.cC;
-        ret.val=cur.val+1;
-    }
-    else
-        ret = cur;
-
-    return ret;
-}
-
-state de(state cur)
-{
-
-    state ret;
-    ii cuA(cur.cA.f,cur.cA.s+1);
-    ii cuB(cur.cB.f,cur.cB.s+1);
-    ii cuC(cur.cC.f,cur.cC.s+1);
-    bool rba=0,rbb=0,rbc=0;
-    if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
-    {
-        if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-            ret.cA = cuA;
-        else
-            ret.cA = cur.cA;
-
-        if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-            ret.cB = cuB;
-        else
-            ret.cB = cur.cB;
-
-        if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-            ret.cC = cuC;
-        else
-            ret.cC = cur.cC;
-
-        if((cuA==ret.cB || cuA == ret.cC) && cuA == ret.cA)
-        {
-            cuA = cur.cA;
-            rba=true;
-        }
-
-        if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
-        {
-            cuB = cur.cB;
-            rbb = true;
-        }
-        if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
-        {
-            cuC = cur.cC;
-            rbc=true;
-        }
-
-        rba?ret.cA = cuA:ret.cA=ret.cA;
-        rbb?ret.cB = cuB:ret.cB=ret.cB;
-        rbc?ret.cC = cuC:ret.cC=ret.cC;
-        ret.val=cur.val+1;
-    }
-    else
-        ret = cur;
-
-    return ret;
-
-}
-
-state ar(state cur)
-{
-    bool rba=0,rbb=0,rbc=0;
-    state ret;
-    ii cuA(cur.cA.f-1,cur.cA.s);
-    ii cuB(cur.cB.f-1,cur.cB.s);
-    ii cuC(cur.cC.f-1,cur.cC.s);
-    if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
-    {
-        if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-            ret.cA = cuA;
-        else
-            ret.cA = cur.cA;
-
-        if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-            ret.cB = cuB;
-        else
-            ret.cB = cur.cB;
-
-        if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-            ret.cC = cuC;
-        else
-            ret.cC = cur.cC;
-
-        if((cuA==ret.cB || cuA == ret.cC) && cuA == ret.cA)
-        {
-            cuA = cur.cA;
-            rba=true;
-        }
-
-        if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
-        {
-            cuB = cur.cB;
-            rbb = true;
-        }
-        if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
-        {
-            cuC = cur.cC;
-            rbc=true;
-        }
-
-        rba?ret.cA = cuA:ret.cA=ret.cA;
-        rbb?ret.cB = cuB:ret.cB=ret.cB;
-        rbc?ret.cC = cuC:ret.cC=ret.cC;
-        ret.val=cur.val+1;
-    }
-    else
-        ret = cur;
-
-    return ret;
-
-}
-
-state ab(state cur)
-{
-    state ret;
-    ii cuA(cur.cA.f+1,cur.cA.s);
-    ii cuB(cur.cB.f+1,cur.cB.s);
-    ii cuC(cur.cC.f+1,cur.cC.s);
-    bool rba=0,rbb=0,rbc=0;
-    if(can(cuA)==1||can(cuB)==1||can(cuC)==1)
-    {
-        if(can(cuA)==1 && (cuA != cuB && cuA != cuC ))
-            ret.cA = cuA;
-        else
-            ret.cA = cur.cA;
-
-        if(can(cuB)==1 &&  (cuB != cuA && cuB != cuC))
-            ret.cB = cuB;
-        else
-            ret.cB = cur.cB;
-
-        if(can(cuC)==1 &&  (cuC != cuB && cuC != cuA))
-            ret.cC = cuC;
-        else
-            ret.cC = cur.cC;
-
-        if((cuA==ret.cB || cuA == ret.cC) && cuA == ret.cA)
-        {
-            cuA = cur.cA;
-            rba=true;
-        }
-
-        if((cuB == ret.cA || cuB == ret.cC) && cuB == ret.cB)
-        {
-            cuB = cur.cB;
-            rbb = true;
-        }
-        if((cuC == ret.cA || cuC == ret.cB) && cuC == ret.cC)
-        {
-            cuC = cur.cC;
-            rbc=true;
-        }
-
-        rba?ret.cA = cuA:ret.cA=ret.cA;
-        rbb?ret.cB = cuB:ret.cB=ret.cB;
-        rbc?ret.cC = cuC:ret.cC=ret.cC;
-        ret.val=cur.val+1;
-    }
-    else
-        ret = cur;
-
-    return ret;
-
+    return false;
 }
 
 bool isEnd(state pe)
@@ -269,14 +65,8 @@ bool notSame(ii p1, ii p2, ii p3)
 
 bool validar(state st)
 {
-    if(can(st.cA)!=-1 && can(st.cB)!=-1 && can(st.cC)!=-1)
-    {
-        if(res[st.cA.f][st.cA.s][st.cB.f][st.cB.s][st.cC.f][st.cC.s]>st.val && notSame(st.cA,st.cB,st.cC))
-        {
-            res[st.cA.f][st.cA.s][st.cB.f][st.cB.s][st.cC.f][st.cC.s]=st.val;
-            return true;
-        }
-    }
+    if(!res[st.cA.f][st.cA.s][st.cB.f][st.cB.s][st.cC.f][st.cC.s] && notSame(st.cA,st.cB,st.cC))
+        return res[st.cA.f][st.cA.s][st.cB.f][st.cB.s][st.cC.f][st.cC.s] = true;
     return false;
 }
 
@@ -285,52 +75,54 @@ void bfs()
     char con;
     qii cola;
     state curr,enc;
-    curr.cA = A;
-    curr.cB = B;
-    curr.cC = C;
-    curr.val = 0;
-    res[A.f][A.s][B.f][B.s][C.f][C.s]=0;
+    curr = state(A,B,C,0);
+    res[A.f][A.s][B.f][B.s][C.f][C.s]=true;
     cola.p(curr);
-
+    ii nA,nB,nC;
+    bool canA,canB,canC;
     while(!cola.e)
     {
         curr = cola.fr;
         cola.pp;
-        if(isEnd(curr))
-            resp > curr.val? resp = curr.val:resp = resp;
-        enc = iz(curr);
-        if(enc!=curr && validar(enc))
-            cola.p(enc);
-        enc = de(curr);
-        if(enc!=curr && validar(enc))
-            cola.p(enc);
-        enc = ar(curr);
-        if(enc!=curr && validar(enc))
-            cola.p(enc);
-        enc = ab(curr);
-        if(enc!=curr && validar(enc))
-            cola.p(enc);
-    }
-}
-
-void llenar()
-{
-    REP(i,0,n)
-    {
-        REP(j,0,n)
-        {
-            REP(k,0,n)
+        if(isEnd(curr)) resp = min(resp,curr.val);
+        REP(c,0,4){
+            nA.f = curr.cA.f + di[c]; nA.s = curr.cA.s + dj[c];
+            nB.f = curr.cB.f + di[c]; nB.s = curr.cB.s + dj[c];
+            nC.f = curr.cC.f + di[c]; nC.s = curr.cC.s + dj[c];
+            canA = can(nA);
+            canB = can(nB);
+            canC = can(nC);
+            if(canA || canB || canC)
             {
-                REP(l,0,n)
-                {
-                    REP(m,0,n)
-                    {
-                        REP(o,0,n)
-                        {
-                            res[i][j][k][l][m][o]=INF;
-                        }
-                    }
+                if(canA){
+                    if(!canB && !canC && nA != curr.cB && nA != curr.cC) enc.cA = nA;
+                    else if(canB && !canC && nA != curr.cC) enc.cA = nA;
+                    else if(canC && !canB && nA != curr.cB) enc.cA = nA;
+                    else if(canB && canC) enc.cA = nA;
+                    else enc.cA = curr.cA;
                 }
+                else enc.cA = curr.cA;
+
+                if(canB){
+                    if(!canA && !canC && nB != curr.cA && nB != curr.cC) enc.cB = nB;
+                    else if(canA && !canC && nB != curr.cC) enc.cB = nB;
+                    else if(canC && !canA && nB != curr.cA) enc.cB = nB;
+                    else if(canA && canC) enc.cB = nB;
+                    else enc.cB = curr.cB;
+                }
+                else enc.cB = curr.cB;
+
+                if(canC){
+                    if(!canA && !canB && nC != curr.cB && nC != curr.cA) enc.cC = nC;
+                    else if(canA && !canB && nC != curr.cB) enc.cC = nC;
+                    else if(canB && !canA && nC != curr.cA) enc.cC = nC;
+                    else if(canA && canB) enc.cC = nC;
+                    else enc.cC = curr.cC;
+                }
+                else enc.cC = curr.cC;
+
+                enc.val = curr.val + 1;
+                if(validar(enc)) cola.push(enc); /*cout << "enqueued\n";*/
             }
         }
     }
@@ -338,52 +130,42 @@ void llenar()
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
 
     int c=0,casos;
     char aux;
 
-    scanf("%d",&casos);
+    cin >> casos;
 
     while(c<casos)
     {
 
         resp = INF;
-        printf("Case %d: ", c+1);
-        scanf("%d\n",&n);
-        llenar();
+        cout << "Case "<< ++c <<": ";
+        cin >> n;
+        memset(res,0,sizeof res);
 
         REP(i,0,n)
         {
             REP(j,0,n)
             {
-                scanf("%c",&aux);
+                cin >> aux;
                 mat[i][j]=aux;
                 if(aux == 'A')
-                {
-                    A.f=i;
-                    A.s=j;
-                }
+                    A = ii(i,j);
                 if(aux == 'B')
-                {
-                    B.f=i;
-                    B.s=j;
-                }
+                    B = ii(i,j);
                 if(aux == 'C')
-                {
-                    C.f=i;
-                    C.s=j;
-                }
+                    C = ii(i,j);
             }
-
-            scanf("%c",&aux);
         }
 
         bfs();
         if (resp!=INF)
-            printf("%d\n", resp);
+            cout << resp << "\n";
         else
-            puts("trapped");
-        c++;
+            cout << "trapped\n";
     }
 
     return 0;
