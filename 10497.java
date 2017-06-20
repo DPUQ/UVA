@@ -2,7 +2,7 @@ import java.math.BigInteger;
 import java.util.Scanner;
 
 
-public class Ej10497{
+public class Main{
 
 	static BigInteger sfact[] = new BigInteger[801];
 
